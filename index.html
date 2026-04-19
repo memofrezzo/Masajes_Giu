@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Masajes Giu — Giuliana Alegre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --cream:       #faf6f0;
+      --ivory:       #f2ede4;
+      --rose:        #c9938a;
+      --rose-dark:   #a96b62;
+      --rose-light:  #e8c4be;
+      --gold:        #c8a96e;
+      --gold-light:  #e5d4b0;
+      --gold-shine:  #f0e2c0;
+      --mauve:       #7a5c5c;
+      --deep:        #2e1e1e;
+      --text:        #3d2b2b;
+      --text-light:  #7a6060;
+      --white:       #ffffff;
+      --shadow:      rgba(90,40,40,0.12);
+      --transition:  0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--ivory); }
+    ::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 3px; }
+
+    /* ===== LOADER ===== */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--deep);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-script {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: var(--gold);
+      animation: fadeIn 1.2s ease forwards;
+      letter-spacing: 2px;
+    }
+    .loader-bar {
+      width: 160px; height: 2px;
+      background: rgba(200,169,110,0.2);
+      margin-top: 1.5rem; border-radius: 2px; overflow: hidden;
+    }
+    .loader-fill {
+      height: 100%; background: var(--gold);
+      animation: loadFill 1.8s ease forwards;
+    }
+    @keyframes loadFill { from { width: 0; } to { width: 100%; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background var(--transition), padding var(--transition), box-shadow var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(250, 246, 240, 0.96);
+      backdrop-filter: blur(12px);
+      padding: 0.8rem 3rem;
+      box-shadow: 0 2px 20px var(--shadow);
+    }
+    .nav-logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: var(--white);
+      text-decoration: none;
+      transition: color var(--transition);
+      letter-spacing: 1px;
+    }
+    nav.scrolled .nav-logo { color: var(--rose-dark); }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      position: relative;
+      transition: color var(--transition);
+    }
+    nav.scrolled .nav-links a { color: var(--text-light); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--gold);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    nav.scrolled .nav-links a:hover { color: var(--rose-dark); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--white); transition: var(--transition);
+    }
+    nav.scrolled .hamburger span { background: var(--text); }
+
+    /* ===== HERO ===== */
+    #hero {
+      height: 100vh; min-height: 640px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(160deg, rgba(46,30,30,0.72) 0%, rgba(122,92,92,0.45) 60%, rgba(200,169,110,0.3) 100%),
+        url('https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=1800&q=80') center/cover no-repeat;
+      transform: scale(1.04);
+      animation: heroZoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1.10); } }
+    /* Fondo alternativo si la imagen no carga */
+    .hero-bg-fallback {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #2e1e1e 0%, #7a5c5c 40%, #c9938a 70%, #c8a96e 100%);
+      z-index: -1;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 2rem;
+      animation: heroReveal 1.4s ease 0.3s both;
+    }
+    @keyframes heroReveal {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200; font-size: 0.72rem;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(4rem, 10vw, 7.5rem);
+      color: var(--white);
+      line-height: 1.1;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.35);
+      margin-bottom: 0.4rem;
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--gold-shine);
+      letter-spacing: 2px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto 2rem;
+    }
+    .hero-cta {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .btn {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400; font-size: 0.72rem;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      text-decoration: none;
+      border-radius: 0;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--deep);
+      border: 1.5px solid var(--gold);
+    }
+    .btn-gold:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.5);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--white);
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .hero-scroll span {
+      font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(200,169,110,0.8), transparent);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ===== SECCIONES GENERALES ===== */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1140px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200; font-size: 0.68rem;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      color: var(--deep);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--rose-dark); }
+    .section-divider {
+      width: 50px; height: 1px;
+      background: linear-gradient(to right, var(--gold), var(--rose-light));
+      margin-bottom: 2rem;
+    }
+    .section-divider.center { margin: 0 auto 2rem; }
+    .section-intro {
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text-light);
+      max-width: 640px;
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--ivory); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image-frame {
+      aspect-ratio: 4/5;
+      background:
+        linear-gradient(145deg, var(--rose-light), var(--gold-light)),
+        url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80') center/cover;
+      background-blend-mode: multiply;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 16px 16px 0 var(--gold-light);
+    }
+    .about-image-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; mix-blend-mode: multiply;
+      opacity: 0.85;
+    }
+    .about-badge {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      width: 100px; height: 100px;
+      background: var(--deep);
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .about-badge-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300;
+      color: var(--gold); line-height: 1;
+    }
+    .about-badge-text {
+      font-size: 0.55rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold-light);
+      text-align: center; padding: 0 8px;
+    }
+    .about-text { display: flex; flex-direction: column; gap: 1.5rem; }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-top: 0.5rem;
+    }
+    .stat-box {
+      border-left: 2px solid var(--gold-light);
+      padding-left: 1rem;
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300;
+      color: var(--rose-dark); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.68rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--text-light);
+    }
+
+    /* ===== SERVICES ===== */
+    #servicios { background: var(--cream); }
+    .services-header { text-align: center; margin-bottom: 4rem; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: transform var(--transition), box-shadow var(--transition);
+      border-bottom: 2px solid transparent;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--rose), var(--gold));
+      transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px var(--shadow); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      font-size: 2rem; margin-bottom: 1.2rem;
+      display: block; line-height: 1;
+    }
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 500;
+      color: var(--deep); margin-bottom: 0.5rem;
+    }
+    .service-time {
+      font-size: 0.68rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .service-desc {
+      font-size: 0.85rem; font-weight: 300;
+      line-height: 1.8; color: var(--text-light);
+    }
+    .service-items {
+      margin-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .service-tag {
+      font-size: 0.68rem; letter-spacing: 1px;
+      color: var(--rose-dark);
+      border: 1px solid var(--rose-light);
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+    }
+
+    /* ===== PRECIOS ===== */
+    #precios { background: var(--deep); }
+    .precios-header { text-align: center; margin-bottom: 4rem; }
+    .precios-header .section-title { color: var(--white); }
+    .precios-header .section-label { color: var(--gold); }
+    .precios-header .section-divider { background: linear-gradient(to right, var(--gold), var(--rose)); }
+    .precios-header .section-intro { color: rgba(255,255,255,0.5); margin: 0 auto; }
+    .precios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .precio-table {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(200,169,110,0.2);
+      padding: 2.5rem;
+    }
+    .precio-table-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .precio-table-sub {
+      font-size: 0.65rem; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      margin-bottom: 1.8rem;
+    }
+    .precio-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background var(--transition);
+    }
+    .precio-row:last-child { border-bottom: none; }
+    .precio-row:hover { background: rgba(200,169,110,0.05); }
+    .precio-item {
+      font-size: 0.85rem; font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.5px;
+    }
+    .precio-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400;
+      color: var(--gold);
+    }
+    .promo-badge {
+      font-size: 0.6rem; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: var(--rose-dark);
+      color: white;
+      padding: 0.15rem 0.6rem;
+      margin-left: 0.5rem;
+      border-radius: 2px;
+    }
+
+    /* ===== GALERÍA ===== */
+    #galeria { background: var(--ivory); }
+    .galeria-header { margin-bottom: 3rem; }
+    .galeria-tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+    }
+    .tab-btn {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 0.5rem 1.4rem;
+      background: transparent;
+      border: 1px solid var(--gold-light);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--deep);
+    }
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 1rem;
+    }
+    .gallery-item {
+      overflow: hidden; position: relative; cursor: pointer;
+      background: var(--rose-light);
+    }
+    .gallery-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(46,30,30,0.6), transparent 60%);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .gallery-item:hover::after { opacity: 1; }
+    .gallery-item:hover .gallery-zoom { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    .gallery-img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover .gallery-img { transform: scale(1.06); }
+    .gallery-zoom {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%) scale(0.8);
+      z-index: 2; opacity: 0; transition: all var(--transition);
+      font-size: 1.5rem; color: var(--white);
+      background: rgba(200,169,110,0.8);
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+    }
+    .g1 { grid-column: span 5; aspect-ratio: 1; }
+    .g2 { grid-column: span 4; aspect-ratio: 1; }
+    .g3 { grid-column: span 3; aspect-ratio: 1; }
+    .g4 { grid-column: span 4; aspect-ratio: 4/3; }
+    .g5 { grid-column: span 8; aspect-ratio: 16/9; }
+    .g6 { grid-column: span 3; aspect-ratio: 3/4; }
+    .g7 { grid-column: span 3; aspect-ratio: 3/4; }
+    .g8 { grid-column: span 6; aspect-ratio: 3/2; }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+      font-size: 0.75rem; letter-spacing: 1px;
+      font-weight: 300;
+      text-transform: uppercase;
+      text-align: center; padding: 1rem;
+    }
+    .gallery-placeholder .ph-icon { font-size: 2rem; opacity: 0.5; }
+
+    /* Colores de fondo para placeholders */
+    .ph-1 { background: linear-gradient(135deg, #e8c4be, #c9938a); }
+    .ph-2 { background: linear-gradient(135deg, #e5d4b0, #c8a96e); }
+    .ph-3 { background: linear-gradient(135deg, #d4c5be, #a96b62); }
+    .ph-4 { background: linear-gradient(135deg, #f0e2c0, #c8a96e); }
+    .ph-5 { background: linear-gradient(135deg, #c9938a, #7a5c5c); }
+    .ph-6 { background: linear-gradient(135deg, #e8c4be, #e5d4b0); }
+    .ph-7 { background: linear-gradient(135deg, #7a5c5c, #c9938a); }
+    .ph-8 { background: linear-gradient(135deg, #e5d4b0, #e8c4be); }
+
+    /* ===== VIDEO SECTION ===== */
+    #videos { background: var(--cream); padding: 4rem 2rem; }
+    .video-header { text-align: center; margin-bottom: 3rem; }
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .video-card {
+      position: relative; overflow: hidden;
+      cursor: pointer;
+    }
+    .video-thumb {
+      aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .video-thumb iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+    }
+    .video-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .vp-1 { background: linear-gradient(135deg, var(--mauve), var(--deep)); }
+    .vp-2 { background: linear-gradient(135deg, var(--deep), var(--rose-dark)); }
+    .vp-3 { background: linear-gradient(135deg, var(--rose-dark), var(--mauve)); }
+    .video-play {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(200,169,110,0.85);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: var(--deep);
+      transition: transform var(--transition), background var(--transition);
+    }
+    .video-card:hover .video-play { transform: scale(1.1); background: var(--gold); }
+    .video-label {
+      font-size: 0.72rem; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+    }
+    .video-card-info {
+      padding: 1rem 0;
+    }
+    .video-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 500;
+      color: var(--deep); margin-bottom: 0.3rem;
+    }
+    .video-card-desc {
+      font-size: 0.8rem; font-weight: 300; color: var(--text-light);
+    }
+
+    /* ===== CERTIFICADOS ===== */
+    #certificados { background: var(--rose-light); }
+    .cert-header { text-align: center; margin-bottom: 4rem; }
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .cert-card {
+      background: var(--white);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .cert-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow); }
+    .cert-seal {
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--rose));
+      margin: 0 auto 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+    .cert-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 500;
+      color: var(--deep); margin-bottom: 0.4rem;
+    }
+    .cert-inst {
+      font-size: 0.7rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--rose-dark);
+      margin-bottom: 0.5rem;
+    }
+    .cert-desc {
+      font-size: 0.8rem; font-weight: 300; color: var(--text-light); line-height: 1.7;
+    }
+    .cert-year {
+      display: inline-block; margin-top: 1rem;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid var(--gold-light);
+      color: var(--gold);
+      padding: 0.2rem 0.8rem;
+    }
+    /* Área para añadir imágenes reales de certificados */
+    .cert-image-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--ivory), var(--gold-shine));
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1rem;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-light);
+      cursor: pointer;
+      border: 1.5px dashed var(--gold-light);
+    }
+
+    /* ===== PROMOCIONES ===== */
+    #promociones { background: var(--cream); }
+    .promo-header { text-align: center; margin-bottom: 1rem; }
+    .promo-notice {
+      text-align: center;
+      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 3rem;
+    }
+    .promos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .promo-card {
+      position: relative; overflow: hidden;
+      background: var(--white);
+      border: 1px solid var(--gold-light);
+      padding: 2.5rem 2rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .promo-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--shadow); }
+    .promo-ribbon {
+      position: absolute; top: 1.5rem; right: -0.5rem;
+      background: var(--rose-dark);
+      color: white;
+      font-size: 0.6rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+    }
+    .promo-card.featured { background: var(--deep); border-color: var(--gold); }
+    .promo-card.featured .promo-title { color: var(--white); }
+    .promo-card.featured .promo-desc { color: rgba(255,255,255,0.55); }
+    .promo-card.featured .promo-price { color: var(--gold); }
+    .promo-card.featured .promo-original { color: rgba(255,255,255,0.35); }
+    .promo-emoji { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+    .promo-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 500;
+      color: var(--deep); margin-bottom: 0.7rem;
+    }
+    .promo-desc {
+      font-size: 0.83rem; font-weight: 300;
+      line-height: 1.8; color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+    .promo-pricing {
+      display: flex; align-items: baseline; gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .promo-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300;
+      color: var(--rose-dark);
+    }
+    .promo-original {
+      font-size: 0.85rem; color: var(--text-light);
+      text-decoration: line-through;
+    }
+    .promo-valid {
+      font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); margin-top: 1rem; display: block;
+    }
+    .btn-rose {
+      background: var(--rose-dark);
+      color: white;
+      border: 1.5px solid var(--rose-dark);
+    }
+    .btn-rose:hover { background: transparent; color: var(--rose-dark); }
+
+    /* ===== CONTACTO ===== */
+    #contacto { background: var(--ivory); }
+    .contacto-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .contacto-info { display: flex; flex-direction: column; gap: 2rem; }
+    .contact-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .contact-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--rose-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .brand-icon {
+      width: 18px; height: 18px;
+      display: block;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+    .contact-icon .brand-icon { width: 20px; height: 20px; }
+    .contact-icon-whatsapp { background: #25D366; color: #ffffff; }
+    .contact-icon-instagram {
+      background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4);
+      color: #ffffff;
+    }
+    .contact-icon-maps { background: #34A853; color: #ffffff; }
+    .platform-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .platform-link .brand-icon { width: 15px; height: 15px; }
+    .platform-link.whatsapp-link .brand-icon { color: #25D366; }
+    .platform-link.instagram-link .brand-icon { color: #E4405F; }
+    .platform-link.maps-link .brand-icon { color: #34A853; }
+    .contact-label {
+      font-size: 0.65rem; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .contact-val {
+      font-size: 0.9rem; color: var(--text); font-weight: 300;
+    }
+    .contact-val a { color: inherit; text-decoration: none; }
+    .contact-val a:hover { color: var(--rose-dark); }
+    .whatsapp-btn {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+      padding: 1rem 2rem;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      transition: all var(--transition);
+      margin-top: 1rem;
+    }
+    .whatsapp-btn .brand-icon { width: 16px; height: 16px; }
+    .whatsapp-btn:hover { background: #1ebe5d; }
+    .horarios-box {
+      background: var(--white);
+      padding: 2rem;
+      border-left: 3px solid var(--gold);
+    }
+    .horarios-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 500;
+      color: var(--deep); margin-bottom: 1.2rem;
+    }
+    .horario-row {
+      display: flex; justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--ivory);
+      font-size: 0.83rem; font-weight: 300; color: var(--text-light);
+    }
+    .horario-row:last-child { border-bottom: none; }
+    .horario-day { font-weight: 400; color: var(--text); }
+
+    /* ===== INSTAGRAM / REDES ===== */
+    .social-strip {
+      background: var(--deep);
+      padding: 2.5rem;
+      display: flex; align-items: center; justify-content: center; gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .social-strip p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem; color: var(--gold-light);
+    }
+    .social-links { display: flex; gap: 1rem; }
+    .social-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); text-decoration: none;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid rgba(200,169,110,0.3);
+      transition: all var(--transition);
+    }
+    .social-link .brand-icon { width: 16px; height: 16px; }
+    .social-link.instagram-link .brand-icon { color: #E4405F; }
+    .social-link.whatsapp-link .brand-icon { color: #25D366; }
+    .social-link:hover {
+      background: var(--gold);
+      color: var(--deep);
+      border-color: var(--gold);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #1a0f0f;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.72rem; letter-spacing: 1.5px;
+    }
+    footer .footer-logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem; color: var(--gold);
+      display: block; margin-bottom: 0.8rem;
+    }
+    footer a { color: var(--rose-light); text-decoration: none; }
+
+    /* ===== ANIMATIONS / REVEAL ===== */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ===== LIGHTBOX ===== */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 5000;
+      background: rgba(20,10,10,0.95);
+      align-items: center; justify-content: center;
+    }
+    #lightbox.active { display: flex; }
+    #lightbox img {
+      max-width: 90vw; max-height: 85vh;
+      object-fit: contain;
+      box-shadow: 0 0 60px rgba(0,0,0,0.5);
+    }
+    #lightbox-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      font-size: 2rem; color: var(--gold);
+      cursor: pointer; background: none; border: none;
+      line-height: 1;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      nav.scrolled { padding: 0.7rem 1.5rem; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 0; top: 0;
+        background: var(--deep);
+        align-items: center; justify-content: center;
+        gap: 2.5rem; z-index: 999;
+      }
+      .nav-links.open a { color: var(--gold-light); font-size: 1.1rem; }
+      .hamburger { display: flex; z-index: 1000; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-image-wrap { max-width: 400px; margin: 0 auto; }
+      .contacto-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .galeria-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .g1, .g2, .g3, .g4, .g5, .g6, .g7, .g8 {
+        grid-column: span 1; aspect-ratio: 1;
+      }
+      section { padding: 4rem 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .precios-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .promos-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== LOADER ===== -->
+<div id="loader">
+  <div class="loader-script">Masajes Giu</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- ===== LIGHTBOX ===== -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- ===== NAVEGACIÓN ===== -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Masajes Giu</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">Sobre Mí</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#precios">Precios</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#certificados">Certificados</a></li>
+    <li><a href="#promociones">Promos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg-fallback"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Bienestar · Belleza · Profesionalismo</p>
+    <h1 class="hero-title">Masajes Giu</h1>
+    <p class="hero-subtitle">por Giuliana Alegre</p>
+    <div class="hero-divider"></div>
+    <p style="color:rgba(255,255,255,0.65); font-weight:300; font-size:0.9rem; letter-spacing:1px; margin-bottom:2.5rem; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem;">
+      Tu espacio de relajación y cuidado personal
+    </p>
+    <div class="hero-cta">
+      <a href="#servicios" class="btn btn-gold">Ver Servicios</a>
+      <a href="#contacto" class="btn btn-outline">Reservar Turno</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <div class="about-image-frame">
+          <!-- Reemplazá esta imagen con una foto de Giuliana -->
+          <img src="https://images.pexels.com/photos/6763618/pexels-photo-6763618.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Depilación profesional - Masajes Giu" />
+        </div>
+        <div class="about-badge">
+          <span class="about-badge-num">22</span>
+          <span class="about-badge-text">Años</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="reveal reveal-delay-1">
+          <div class="section-label">Sobre Mí</div>
+          <h2 class="section-title">Hola, soy <em>Giuliana</em></h2>
+          <div class="section-divider"></div>
+        </div>
+        <p class="section-intro reveal reveal-delay-2">
+          Tengo 22 años y soy masajista profesional certificada en bienestar y estética. Mi pasión es brindarte un espacio de relajación, cuidado y transformación personal donde cada visita sea una experiencia única.
+        </p>
+        <p class="section-intro reveal reveal-delay-2">
+          Cuento con cursos certificados de masajes relajantes, faciales y descontracturantes, además de depilación, perfilado de cejas y cuidados de la piel. Trabajo con profesionalismo, calidez y atención personalizada.
+        </p>
+        <div class="about-stats reveal reveal-delay-3">
+          <div class="stat-box">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Productos de calidad</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">★ 5</div>
+            <div class="stat-label">Valoración clientes</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">Cursos</div>
+            <div class="stat-label">Certificados</div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-4">
+          <a href="#contacto" class="btn btn-gold" style="margin-top:1rem;">Reservar Turno</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICIOS ===== -->
+<section id="servicios">
+  <div class="container">
+    <div class="services-header reveal">
+      <div class="section-label">Lo que ofrezco</div>
+      <h2 class="section-title">Mis <em>Servicios</em></h2>
+      <div class="section-divider center"></div>
+      <p class="section-intro" style="margin:0 auto; text-align:center;">Cada servicio está pensado para tu bienestar y comodidad, con productos de primera calidad y técnicas profesionales.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <span class="service-icon">💆‍♀️</span>
+        <div class="service-name">Masajes</div>
+        <div class="service-time">⏱ 45 – 60 min</div>
+        <p class="service-desc">Técnicas profesionales para liberar tensiones, aliviar dolores y restablecer tu equilibrio.</p>
+        <div class="service-items">
+          <span class="service-tag">Relajante</span>
+          <span class="service-tag">Descontracturante</span>
+          <span class="service-tag">Facial</span>
+          <span class="service-tag">Express</span>
+          <span class="service-tag">Completo</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-icon">✂️</span>
+        <div class="service-name">Perfilado de Cejas</div>
+        <div class="service-time">⏱ 20 min</div>
+        <p class="service-desc">Diseño y perfilado de cejas personalizado que realza tu mirada y define tu rostro.</p>
+        <div class="service-items">
+          <span class="service-tag">Diseño</span>
+          <span class="service-tag">Hilo</span>
+          <span class="service-tag">Cera</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-icon">🌿</span>
+        <div class="service-name">Depilación</div>
+        <div class="service-time">⏱ 15 – 30 min</div>
+        <p class="service-desc">Depilación tradicional con cera para una piel suave y duradera. Técnica precisa y cuidadosa.</p>
+        <div class="service-items">
+          <span class="service-tag">Bozo</span>
+          <span class="service-tag">Axilas</span>
+          <span class="service-tag">Piernas</span>
+          <span class="service-tag">Rostro completo</span>
+          <span class="service-tag">Cavado</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-3">
+        <span class="service-icon">✨</span>
+        <div class="service-name">Cuidado Facial</div>
+        <div class="service-time">⏱ 20 min</div>
+        <p class="service-desc">Tratamientos faciales con mascarillas hidratantes y nutritivas para una piel radiante.</p>
+        <div class="service-items">
+          <span class="service-tag">Mascarillas</span>
+          <span class="service-tag">Hidratación</span>
+          <span class="service-tag">Masaje facial</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <span class="service-icon">🎨</span>
+        <div class="service-name">Tatuajes</div>
+        <div class="service-time">⏱ A consultar</div>
+        <p class="service-desc">Arte corporal personalizado con diseños únicos. Consultá por diseños y disponibilidad.</p>
+        <div class="service-items">
+          <span class="service-tag">Diseños propios</span>
+          <span class="service-tag">Personalizado</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-icon">👗</span>
+        <div class="service-name">Indumentaria</div>
+        <div class="service-time">Venta directa</div>
+        <p class="service-desc">Selección de ropa y accesorios. Consultá disponibilidad y talles.</p>
+        <div class="service-items">
+          <span class="service-tag">Ropa</span>
+          <span class="service-tag">Accesorios</span>
+          <span class="service-tag">A pedido</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRECIOS ===== -->
+<section id="precios">
+  <div class="container">
+    <div class="precios-header reveal">
+      <div class="section-label">Lista oficial</div>
+      <h2 class="section-title" style="color:var(--white)">Lista de <em style="color:var(--gold)">Precios</em></h2>
+      <div class="section-divider center" style="background:linear-gradient(to right,var(--gold),var(--rose))"></div>
+      <p class="section-intro" style="margin:0 auto;text-align:center;color:rgba(255,255,255,0.45)">
+        Precios actualizados. Para más información o paquetes especiales, consultá por WhatsApp.
+      </p>
+    </div>
+    <div class="precios-grid">
+
+      <div class="precio-table reveal">
+        <div class="precio-table-title">Masajes</div>
+        <div class="precio-table-sub">Sección principal</div>
+        <div class="precio-row">
+          <span class="precio-item">Masaje Descontracturante</span>
+          <span class="precio-val">$15.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Masaje Relajante</span>
+          <span class="precio-val">$15.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Masaje Facial</span>
+          <span class="precio-val">$10.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Masaje Express</span>
+          <span class="precio-val">$10.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Completo</span>
+          <span class="precio-val">$15.000</span>
+        </div>
+      </div>
+
+      <div class="precio-table reveal reveal-delay-1">
+        <div class="precio-table-title">Depilación Tradicional</div>
+        <div class="precio-table-sub">Estilo cera</div>
+        <div class="precio-row">
+          <span class="precio-item">Rostro Completo</span>
+          <span class="precio-val">$15.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Bozo</span>
+          <span class="precio-val">$15.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Axilas</span>
+          <span class="precio-val">$12.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Cavado</span>
+          <span class="precio-val">$25.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Pierna Completa</span>
+          <span class="precio-val">$26.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Media Pierna</span>
+          <span class="precio-val">$22.000</span>
+        </div>
+      </div>
+
+      <div class="precio-table reveal reveal-delay-2">
+        <div class="precio-table-title">Cuidado Facial</div>
+        <div class="precio-table-sub">Tratamientos y mascarillas</div>
+        <div class="precio-row">
+          <span class="precio-item">Mascarilla Facial <span class="promo-badge">Popular</span></span>
+          <span class="precio-val">A consultar</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Masaje Relajante + Facial</span>
+          <span class="precio-val">A consultar</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Descontracturante + Facial</span>
+          <span class="precio-val">A consultar</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">Perfilado de Cejas</span>
+          <span class="precio-val">A consultar</span>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align:center; margin-top:2.5rem; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3);">
+      * Los precios pueden variar. Consultá por paquetes y descuentos especiales.
+    </p>
+  </div>
+</section>
+
+<!-- ===== GALERÍA ===== -->
+<section id="galeria">
+  <div class="container">
+    <div class="galeria-header reveal">
+      <div class="section-label">Mis trabajos</div>
+      <h2 class="section-title">Galería</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="galeria-tabs">
+      <button class="tab-btn active" data-filter="all">Todo</button>
+      <button class="tab-btn" data-filter="masajes">Masajes</button>
+      <button class="tab-btn" data-filter="cejas">Cejas</button>
+      <button class="tab-btn" data-filter="facial">Facial</button>
+      <button class="tab-btn" data-filter="tattoo">Tatuajes</button>
+    </div>
+
+    <!-- Instrucción: reemplazá los placeholders con tus fotos reales -->
+    <div class="galeria-grid" id="galeriaGrid">
+
+      <div class="gallery-item g1 ph-1" data-cat="masajes">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">💆</span>
+          <span>Tu foto aquí<br>Masajes</span>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item g2 ph-2" data-cat="cejas">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">✂️</span>
+          <span>Perfilado<br>de Cejas</span>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item g3 ph-3" data-cat="facial">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">✨</span>
+          <span>Facial</span>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item g4 ph-4" data-cat="tattoo">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">🎨</span>
+          <span>Tatuajes</span>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item g5 ph-5" data-cat="masajes">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">💆‍♀️</span>
+          <span>Tu foto aquí<br>Masaje Relajante</span>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item g6 ph-6" data-cat="cejas">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">👁️</span>
+          <span>Cejas</span>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item g7 ph-7" data-cat="facial">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">🌸</span>
+          <span>Mascarilla</span>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item g8 ph-8" data-cat="masajes">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">🤲</span>
+          <span>Descontracturante</span>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDEOS ===== -->
+<section id="videos">
+  <div class="container">
+    <div class="video-header reveal">
+      <div class="section-label">En acción</div>
+      <h2 class="section-title">Mis <em>Videos</em></h2>
+      <div class="section-divider center"></div>
+      <p class="section-intro" style="margin:0 auto;text-align:center;">
+        Mirá cómo trabajo y conocé mis técnicas de cerca.
+      </p>
+    </div>
+    <div class="videos-grid">
+
+      <!-- Para agregar tus videos de YouTube, reemplazá el src con la URL embed de tu video -->
+      <!-- Formato: https://www.youtube.com/embed/TU_VIDEO_ID -->
+      <div class="video-card reveal">
+        <div class="video-thumb">
+          <!-- <iframe src="https://www.youtube.com/embed/TU_VIDEO_ID" allowfullscreen></iframe> -->
+          <div class="video-placeholder vp-1">
+            <div class="video-play">▶</div>
+            <div class="video-label">Agregá tu video aquí</div>
+          </div>
+        </div>
+        <div class="video-card-info">
+          <div class="video-card-title">Masaje Relajante</div>
+          <div class="video-card-desc">Técnica de masaje sueco para liberar tensiones acumuladas</div>
+        </div>
+      </div>
+
+      <div class="video-card reveal reveal-delay-1">
+        <div class="video-thumb">
+          <div class="video-placeholder vp-2">
+            <div class="video-play">▶</div>
+            <div class="video-label">Agregá tu video aquí</div>
+          </div>
+        </div>
+        <div class="video-card-info">
+          <div class="video-card-title">Perfilado de Cejas</div>
+          <div class="video-card-desc">Diseño personalizado para realzar tu mirada naturalmente</div>
+        </div>
+      </div>
+
+      <div class="video-card reveal reveal-delay-2">
+        <div class="video-thumb">
+          <div class="video-placeholder vp-3">
+            <div class="video-play">▶</div>
+            <div class="video-label">Agregá tu video aquí</div>
+          </div>
+        </div>
+        <div class="video-card-info">
+          <div class="video-card-title">Cuidado Facial</div>
+          <div class="video-card-desc">Rutina de mascarillas y masaje facial hidratante</div>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:2rem;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);display:flex;align-items:center;justify-content:center;gap:0.4rem;">
+      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true" style="color:#E4405F;">
+        <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/>
+      </svg>
+      <span>Seguime en Instagram para ver más contenido</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== CERTIFICADOS ===== -->
+<section id="certificados">
+  <div class="container">
+    <div class="cert-header reveal">
+      <div class="section-label">Formación profesional</div>
+      <h2 class="section-title">Mis <em>Certificados</em></h2>
+      <div class="section-divider center"></div>
+      <p class="section-intro" style="margin:0 auto;text-align:center;">
+        Mi formación está respaldada por cursos certificados para que recibas una atención actualizada, segura y profesional.
+      </p>
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card reveal">
+        <div class="cert-seal">🏆</div>
+        <div class="cert-title">Masaje Terapéutico Profesional</div>
+        <div class="cert-inst">Institución Certificante</div>
+        <p class="cert-desc">Técnicas avanzadas de masaje terapéutico y descontracturante. Anatomía aplicada.</p>
+        <span class="cert-year">2022</span>
+        <div class="cert-image-placeholder">
+          📄 Subí aquí la foto<br>de tu certificado
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-seal">✨</div>
+        <div class="cert-title">Estética Facial y Corporal</div>
+        <div class="cert-inst">Escuela de Estética</div>
+        <p class="cert-desc">Tratamientos faciales, técnicas de depilación y cuidado de la piel.</p>
+        <span class="cert-year">2023</span>
+        <div class="cert-image-placeholder">
+          📄 Subí aquí la foto<br>de tu certificado
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-seal">🎨</div>
+        <div class="cert-title">Diseño de Cejas</div>
+        <div class="cert-inst">Academia de Belleza</div>
+        <p class="cert-desc">Perfilado, diseño y coloración de cejas según morfología del rostro.</p>
+        <span class="cert-year">2024</span>
+        <div class="cert-image-placeholder">
+          📄 Subí aquí la foto<br>de tu certificado
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-3">
+        <div class="cert-seal">🌿</div>
+        <div class="cert-title">Masaje Relajante</div>
+        <div class="cert-inst">Centro de Formación</div>
+        <p class="cert-desc">Masaje sueco, drenaje linfático y técnicas de relajación profunda.</p>
+        <span class="cert-year">2025</span>
+        <div class="cert-image-placeholder">
+          📄 Subí aquí la foto<br>de tu certificado
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMOCIONES ===== -->
+<section id="promociones">
+  <div class="container">
+    <div class="promo-header reveal">
+      <div class="section-label">Ofertas especiales</div>
+      <h2 class="section-title">Mis <em>Promociones</em></h2>
+      <div class="section-divider center"></div>
+    </div>
+    <p class="promo-notice reveal">🔄 Las promociones se actualizan regularmente — seguime en redes para no perderte nada</p>
+
+    <div class="promos-grid">
+
+      <div class="promo-card reveal">
+        <div class="promo-ribbon">Más pedido</div>
+        <span class="promo-emoji">💆‍♀️✨</span>
+        <div class="promo-title">Masaje + Facial</div>
+        <p class="promo-desc">Combo especial: Masaje relajante de 45 min + tratamiento facial con mascarilla hidratante. El pack perfecto para regalar o darte un gusto.</p>
+        <div class="promo-pricing">
+          <span class="promo-price">Consultar</span>
+        </div>
+        <a href="#contacto" class="btn btn-rose">Reservar</a>
+        <span class="promo-valid">📅 Disponible con turno previo</span>
+      </div>
+
+      <div class="promo-card featured reveal reveal-delay-1">
+        <div class="promo-ribbon">Destacado</div>
+        <span class="promo-emoji">🌟</span>
+        <div class="promo-title">Pack Bienestar Total</div>
+        <p class="promo-desc">Masaje descontracturante + masaje facial + perfilado de cejas. Una experiencia completa de relajación y belleza en una sola sesión.</p>
+        <div class="promo-pricing">
+          <span class="promo-price">Consultar</span>
+        </div>
+        <a href="#contacto" class="btn btn-gold">Reservar</a>
+        <span class="promo-valid">🎁 Ideal como regalo</span>
+      </div>
+
+      <div class="promo-card reveal reveal-delay-2">
+        <span class="promo-emoji">🌿</span>
+        <div class="promo-title">Depilación Express</div>
+        <p class="promo-desc">Bozo + Cejas + Axilas en una sola sesión. Rápido, preciso y económico. Resultados duraderos.</p>
+        <div class="promo-pricing">
+          <span class="promo-price">Consultar</span>
+        </div>
+        <a href="#contacto" class="btn btn-rose">Reservar</a>
+        <span class="promo-valid">⚡ Sin espera, con turno</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACTO ===== -->
+<section id="contacto">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:3rem;">
+      <div class="section-label">Hablemos</div>
+      <h2 class="section-title">Reservá tu <em>Turno</em></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="contacto-grid">
+      <div class="contacto-info">
+
+        <div class="contact-item reveal">
+          <div class="contact-icon contact-icon-whatsapp">
+            <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">WhatsApp / Teléfono</div>
+            <!-- Reemplazá con tu número real -->
+            <div class="contact-val">
+              <a href="https://wa.me/5492364370735?text=Hola%20Giu%2C%20quiero%20reservar%20un%20turno." target="_blank" rel="noopener noreferrer" class="platform-link whatsapp-link">
+                <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                <span>+5492364370735</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item reveal reveal-delay-1">
+          <div class="contact-icon contact-icon-instagram">
+            <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">Instagram</div>
+            <!-- Reemplazá con tu usuario de Instagram -->
+            <div class="contact-val">
+              <a href="https://www.instagram.com/masajes_giu/" target="_blank" rel="noopener noreferrer" class="platform-link instagram-link">
+                <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/>
+                </svg>
+                <span>@masajes_giu</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item reveal reveal-delay-2">
+          <div class="contact-icon contact-icon-maps">
+            <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19.527 4.799c1.212 2.608.937 5.678-.405 8.173-1.101 2.047-2.744 3.74-4.098 5.614-.619.858-1.244 1.75-1.669 2.727-.141.325-.263.658-.383.992-.121.333-.224.673-.34 1.008-.109.314-.236.684-.627.687h-.007c-.466-.001-.579-.53-.695-.887-.284-.874-.581-1.713-1.019-2.525-.51-.944-1.145-1.817-1.79-2.671L19.527 4.799zM8.545 7.705l-3.959 4.707c.724 1.54 1.821 2.863 2.871 4.18.247.31.494.622.737.936l4.984-5.925-.029.01c-1.741.601-3.691-.291-4.392-1.987a3.377 3.377 0 0 1-.209-.716c-.063-.437-.077-.761-.004-1.198l.001-.007zM5.492 3.149l-.003.004c-1.947 2.466-2.281 5.88-1.117 8.77l4.785-5.689-.058-.05-3.607-3.035zM14.661.436l-3.838 4.563a.295.295 0 0 1 .027-.01c1.6-.551 3.403.15 4.22 1.626.176.319.323.683.377 1.045.068.446.085.773.012 1.22l-.003.016 3.836-4.561A8.382 8.382 0 0 0 14.67.439l-.009-.003zM9.466 5.868L14.162.285l-.047-.012A8.31 8.31 0 0 0 11.986 0a8.439 8.439 0 0 0-6.169 2.766l-.016.018 3.665 3.084z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">Ubicación</div>
+            <div class="contact-val">
+              <a href="https://www.google.com/maps/search/?api=1&query=Ameghino+1345,+Junin,+Buenos+Aires"
+                 target="_blank" rel="noopener noreferrer" class="platform-link maps-link">
+                <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19.527 4.799c1.212 2.608.937 5.678-.405 8.173-1.101 2.047-2.744 3.74-4.098 5.614-.619.858-1.244 1.75-1.669 2.727-.141.325-.263.658-.383.992-.121.333-.224.673-.34 1.008-.109.314-.236.684-.627.687h-.007c-.466-.001-.579-.53-.695-.887-.284-.874-.581-1.713-1.019-2.525-.51-.944-1.145-1.817-1.79-2.671L19.527 4.799zM8.545 7.705l-3.959 4.707c.724 1.54 1.821 2.863 2.871 4.18.247.31.494.622.737.936l4.984-5.925-.029.01c-1.741.601-3.691-.291-4.392-1.987a3.377 3.377 0 0 1-.209-.716c-.063-.437-.077-.761-.004-1.198l.001-.007zM5.492 3.149l-.003.004c-1.947 2.466-2.281 5.88-1.117 8.77l4.785-5.689-.058-.05-3.607-3.035zM14.661.436l-3.838 4.563a.295.295 0 0 1 .027-.01c1.6-.551 3.403.15 4.22 1.626.176.319.323.683.377 1.045.068.446.085.773.012 1.22l-.003.016 3.836-4.561A8.382 8.382 0 0 0 14.67.439l-.009-.003zM9.466 5.868L14.162.285l-.047-.012A8.31 8.31 0 0 0 11.986 0a8.439 8.439 0 0 0-6.169 2.766l-.016.018 3.665 3.084z"/>
+                </svg>
+                <span>Ameghino 1345, Junín (Buenos Aires)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item reveal reveal-delay-3">
+          <div class="contact-icon">
+            <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3.2 2.4 10h1.9v9.8h6.1v-6.3h3.2v6.3h6.1V10h1.9L12 3.2z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">Modalidad</div>
+            <div class="contact-val">Atención en gabinete y a domicilio</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-4">
+          <!-- Reemplazá el número con tu WhatsApp real: 5492xxxxxxxxxx (código de país + área + número sin 0 ni 15) -->
+          <a href="https://wa.me/5492364370735?text=Hola%20Giu%2C%20quiero%20reservar%20un%20turno." 
+             target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+            <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            <span>Escribime por WhatsApp</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="horarios-box">
+          <div class="horarios-title">Horarios de Atención</div>
+          <div class="horario-row">
+            <span class="horario-day">Horario</span>
+            <span>9:00 – 18:00</span>
+          </div>
+          <div class="horario-row">
+            <span class="horario-day">Turnos</span>
+            <span>Con reserva previa</span>
+          </div>
+          <div class="horario-row">
+            <span class="horario-day">Servicio</span>
+            <span>También a domicilio</span>
+          </div>
+          <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--ivory);">
+            <p style="font-size:0.78rem;color:var(--text-light);line-height:1.8;font-weight:300;">
+              Ameghino 1345, Junín (Buenos Aires).<br>
+              Se confirman por WhatsApp.<br>
+              También hacemos atención a domicilio.
+            </p>
+            <div style="margin-top:1rem;">
+              <iframe
+                title="Ubicación Masajes Giu"
+                src="https://www.google.com/maps?q=Ameghino+1345,+Junin,+Buenos+Aires&output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                style="width:100%; height:220px; border:0;">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL STRIP ===== -->
+<div class="social-strip">
+  <p>Seguime para ver novedades y promociones</p>
+  <div class="social-links">
+    <a href="https://www.instagram.com/masajes_giu/" target="_blank" rel="noopener noreferrer" class="social-link instagram-link">
+      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/>
+      </svg>
+      <span>Instagram</span>
+    </a>
+    <a href="https://wa.me/5492364370735?text=Hola%20Giu%2C%20quiero%20reservar%20un%20turno." target="_blank" rel="noopener noreferrer" class="social-link whatsapp-link">
+      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <span class="footer-logo">Masajes Giu</span>
+  <p>© 2025 Giuliana Alegre · Masajes &amp; Estética · Junín, Buenos Aires</p>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  // --- LOADER ---
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 2000);
+  });
+
+  // --- NAVBAR SCROLL ---
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // --- HAMBURGER MENU ---
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // --- SCROLL REVEAL ---
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // --- GALLERY FILTER ---
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      galleryItems.forEach(item => {
+        if (filter === 'all' || item.dataset.cat === filter) {
+          item.style.opacity = '1';
+          item.style.transform = 'scale(1)';
+          item.style.display = '';
+        } else {
+          item.style.opacity = '0.2';
+          item.style.transform = 'scale(0.97)';
+        }
+      });
+    });
+  });
+
+  // --- LIGHTBOX ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      if (img) {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      }
+    });
+  });
+  lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+
+  // --- SMOOTH ACTIVE NAV ---
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = '';
+      if (a.getAttribute('href') === '#' + current) {
+        a.style.color = 'var(--gold)';
+      }
+    });
+  });
+</script>
+</body>
+</html>
