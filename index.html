@@ -299,8 +299,9 @@
     }
     .about-image-frame img {
       width: 100%; height: 100%; object-fit: cover;
-      display: block; mix-blend-mode: multiply;
-      opacity: 0.85;
+      display: block;
+      mix-blend-mode: normal;
+      opacity: 1;
     }
     .about-badge {
       position: absolute; bottom: -1.5rem; right: -1.5rem;
@@ -394,6 +395,65 @@
       border: 1px solid var(--rose-light);
       padding: 0.2rem 0.7rem;
       border-radius: 20px;
+    }
+
+    /* ===== PERFUMERÍA ===== */
+    #perfumeria { background: var(--ivory); }
+    .perf-header { text-align: center; margin-bottom: 3rem; }
+    .perf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.4rem;
+    }
+    .product-card {
+      background: var(--white);
+      border: 1px solid var(--gold-light);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px var(--shadow);
+    }
+    .product-media {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: var(--ivory);
+    }
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .product-card:hover .product-media img { transform: scale(1.04); }
+    .product-info { padding: 1rem 1rem 1.2rem; }
+    .product-type {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--rose-dark);
+      margin-bottom: 0.45rem;
+    }
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--deep);
+      margin-bottom: 0.35rem;
+    }
+    .product-desc {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .perf-help {
+      margin-top: 1.6rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 1px;
     }
 
     /* ===== PRECIOS ===== */
@@ -538,6 +598,37 @@
     .ph-6 { background: linear-gradient(135deg, #e8c4be, #e5d4b0); }
     .ph-7 { background: linear-gradient(135deg, #7a5c5c, #c9938a); }
     .ph-8 { background: linear-gradient(135deg, #e5d4b0, #e8c4be); }
+    .media-gallery-title {
+      margin-top: 2.2rem;
+      margin-bottom: 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--rose-dark);
+    }
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .media-card {
+      background: var(--white);
+      border: 1px solid var(--gold-light);
+      overflow: hidden;
+    }
+    .media-card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .media-card p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      padding: 0.8rem 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
 
     /* ===== VIDEO SECTION ===== */
     #videos { background: var(--cream); padding: 4rem 2rem; }
@@ -555,6 +646,10 @@
       aspect-ratio: 16/9;
       display: flex; align-items: center; justify-content: center;
       position: relative;
+    }
+    .video-thumb video {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+      object-fit: cover; background: #000;
     }
     .video-thumb iframe {
       position: absolute; inset: 0; width: 100%; height: 100%; border: none;
@@ -602,6 +697,11 @@
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.5rem;
     }
+    .cert-grid-main {
+      max-width: 840px;
+      margin: 0 auto;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     .cert-card {
       background: var(--white);
       padding: 2rem 1.5rem;
@@ -639,6 +739,16 @@
       color: var(--gold);
       padding: 0.2rem 0.8rem;
     }
+    .cert-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      margin-top: 1rem;
+      border: 1px solid var(--gold-light);
+      cursor: zoom-in;
+    }
+    .zoomable { cursor: zoom-in; }
     /* Área para añadir imágenes reales de certificados */
     .cert-image-placeholder {
       width: 100%; aspect-ratio: 4/3;
@@ -907,7 +1017,9 @@
     @media (max-width: 600px) {
       .precios-grid { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: 1fr; }
+      .perf-grid { grid-template-columns: 1fr; }
       .cert-grid { grid-template-columns: 1fr; }
+      .cert-grid-main { grid-template-columns: 1fr; }
       .promos-grid { grid-template-columns: 1fr; }
       .about-stats { grid-template-columns: 1fr 1fr; }
     }
@@ -933,6 +1045,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">Sobre Mí</a></li>
     <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#perfumeria">Perfumería</a></li>
     <li><a href="#precios">Precios</a></li>
     <li><a href="#galeria">Galería</a></li>
     <li><a href="#certificados">Certificados</a></li>
@@ -1105,6 +1218,68 @@
   </div>
 </section>
 
+<!-- ===== PERFUMERÍA ===== -->
+<section id="perfumeria">
+  <div class="container">
+    <div class="perf-header reveal">
+      <div class="section-label">Productos</div>
+      <h2 class="section-title">Perfumería y <em>Jabones</em></h2>
+      <div class="section-divider center"></div>
+      <p class="section-intro" style="margin:0 auto;text-align:center;">
+        Catálogo disponible en el gabinete. Consultá stock y novedades por WhatsApp.
+      </p>
+    </div>
+
+    <div class="perf-grid">
+      <!-- Para agregar más productos: duplicá un .product-card y cambiá imagen, tipo y nombre -->
+      <article class="product-card reveal">
+        <div class="product-media">
+          <img src="assets/media/jabones.jpg" alt="Venta de jabones" loading="lazy" />
+        </div>
+        <div class="product-info">
+          <div class="product-type">Jabones</div>
+          <h3 class="product-name">Jabones para cuidado diario</h3>
+          <p class="product-desc">Opciones para distintos tipos de piel. Ideal para complementar tus tratamientos.</p>
+        </div>
+      </article>
+
+      <article class="product-card reveal reveal-delay-1">
+        <div class="product-media">
+          <img src="assets/media/perfume-hombre.jpg" alt="Perfume para hombre" loading="lazy" />
+        </div>
+        <div class="product-info">
+          <div class="product-type">Perfume</div>
+          <h3 class="product-name">Fragancia Hombre</h3>
+          <p class="product-desc">Aroma intenso y elegante para uso diario o eventos especiales.</p>
+        </div>
+      </article>
+
+      <article class="product-card reveal reveal-delay-2">
+        <div class="product-media">
+          <img src="assets/media/perfume-humor.jpg" alt="Perfume Humor" loading="lazy" />
+        </div>
+        <div class="product-info">
+          <div class="product-type">Perfume</div>
+          <h3 class="product-name">Fragancia Humor</h3>
+          <p class="product-desc">Una opción versátil, fresca y moderna para todos los días.</p>
+        </div>
+      </article>
+
+      <article class="product-card reveal reveal-delay-3">
+        <div class="product-media">
+          <img src="assets/media/perfumeria-festival.jpg" alt="Perfumes disponibles en gabinete" loading="lazy" />
+        </div>
+        <div class="product-info">
+          <div class="product-type">Perfume</div>
+          <h3 class="product-name">Colección Festival</h3>
+          <p class="product-desc">Selección de fragancias para que elijas la que mejor va con tu estilo.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <!-- ===== PRECIOS ===== -->
 <section id="precios">
   <div class="container">
@@ -1143,35 +1318,6 @@
         </div>
       </div>
 
-      <div class="precio-table reveal reveal-delay-1">
-        <div class="precio-table-title">Depilación Tradicional</div>
-        <div class="precio-table-sub">Estilo cera</div>
-        <div class="precio-row">
-          <span class="precio-item">Rostro Completo</span>
-          <span class="precio-val">$15.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">Bozo</span>
-          <span class="precio-val">$15.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">Axilas</span>
-          <span class="precio-val">$12.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">Cavado</span>
-          <span class="precio-val">$25.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">Pierna Completa</span>
-          <span class="precio-val">$26.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">Media Pierna</span>
-          <span class="precio-val">$22.000</span>
-        </div>
-      </div>
-
       <div class="precio-table reveal reveal-delay-2">
         <div class="precio-table-title">Cuidado Facial</div>
         <div class="precio-table-sub">Tratamientos y mascarillas</div>
@@ -1193,6 +1339,31 @@
         </div>
       </div>
 
+      <div class="precio-table reveal reveal-delay-3">
+        <div class="precio-table-title">Combos Depilación</div>
+        <div class="precio-table-sub">Promociones por zonas</div>
+        <div class="precio-row">
+          <span class="precio-item">🟦 COMBO 1: Piernas completas + axilas</span>
+          <span class="precio-val">$21.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">💎 COMBO 2: Media pierna + cavado completo + axilas</span>
+          <span class="precio-val">$20.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">👑 COMBO 3 FULL PROMO: Piernas completas + cavado completo + axilas + bozo</span>
+          <span class="precio-val">$25.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">⚡ COMBO 4: Cavado completo + axilas + media pierna</span>
+          <span class="precio-val">$23.000</span>
+        </div>
+        <div class="precio-row">
+          <span class="precio-item">⭐ COMBO 5: Piernas completas + axilas + cavado completo</span>
+          <span class="precio-val">$25.000</span>
+        </div>
+      </div>
+
     </div>
     <p style="text-align:center; margin-top:2.5rem; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3);">
       * Los precios pueden variar. Consultá por paquetes y descuentos especiales.
@@ -1204,85 +1375,22 @@
 <section id="galeria">
   <div class="container">
     <div class="galeria-header reveal">
-      <div class="section-label">Mis trabajos</div>
       <h2 class="section-title">Galería</h2>
       <div class="section-divider"></div>
     </div>
-    <div class="galeria-tabs">
-      <button class="tab-btn active" data-filter="all">Todo</button>
-      <button class="tab-btn" data-filter="masajes">Masajes</button>
-      <button class="tab-btn" data-filter="cejas">Cejas</button>
-      <button class="tab-btn" data-filter="facial">Facial</button>
-      <button class="tab-btn" data-filter="tattoo">Tatuajes</button>
-    </div>
-
-    <!-- Instrucción: reemplazá los placeholders con tus fotos reales -->
-    <div class="galeria-grid" id="galeriaGrid">
-
-      <div class="gallery-item g1 ph-1" data-cat="masajes">
-        <div class="gallery-placeholder">
-          <span class="ph-icon">💆</span>
-          <span>Tu foto aquí<br>Masajes</span>
-        </div>
-        <div class="gallery-zoom">🔍</div>
-      </div>
-
-      <div class="gallery-item g2 ph-2" data-cat="cejas">
-        <div class="gallery-placeholder">
-          <span class="ph-icon">✂️</span>
-          <span>Perfilado<br>de Cejas</span>
-        </div>
-        <div class="gallery-zoom">🔍</div>
-      </div>
-
-      <div class="gallery-item g3 ph-3" data-cat="facial">
-        <div class="gallery-placeholder">
-          <span class="ph-icon">✨</span>
-          <span>Facial</span>
-        </div>
-        <div class="gallery-zoom">🔍</div>
-      </div>
-
-      <div class="gallery-item g4 ph-4" data-cat="tattoo">
-        <div class="gallery-placeholder">
-          <span class="ph-icon">🎨</span>
-          <span>Tatuajes</span>
-        </div>
-        <div class="gallery-zoom">🔍</div>
-      </div>
-
-      <div class="gallery-item g5 ph-5" data-cat="masajes">
-        <div class="gallery-placeholder">
-          <span class="ph-icon">💆‍♀️</span>
-          <span>Tu foto aquí<br>Masaje Relajante</span>
-        </div>
-        <div class="gallery-zoom">🔍</div>
-      </div>
-
-      <div class="gallery-item g6 ph-6" data-cat="cejas">
-        <div class="gallery-placeholder">
-          <span class="ph-icon">👁️</span>
-          <span>Cejas</span>
-        </div>
-        <div class="gallery-zoom">🔍</div>
-      </div>
-
-      <div class="gallery-item g7 ph-7" data-cat="facial">
-        <div class="gallery-placeholder">
-          <span class="ph-icon">🌸</span>
-          <span>Mascarilla</span>
-        </div>
-        <div class="gallery-zoom">🔍</div>
-      </div>
-
-      <div class="gallery-item g8 ph-8" data-cat="masajes">
-        <div class="gallery-placeholder">
-          <span class="ph-icon">🤲</span>
-          <span>Descontracturante</span>
-        </div>
-        <div class="gallery-zoom">🔍</div>
-      </div>
-
+    <div class="media-grid">
+      <article class="media-card reveal">
+        <img class="zoomable" src="assets/media/masaje-mujer.jpg" alt="Sesión real de masajes" loading="lazy" />
+        <p>Masajes</p>
+      </article>
+      <article class="media-card reveal reveal-delay-1">
+        <img class="zoomable" src="assets/media/perfilado-cejas.jpg" alt="Trabajo de perfilado de cejas" loading="lazy" />
+        <p>Perfilado de cejas</p>
+      </article>
+      <article class="media-card reveal reveal-delay-2">
+        <img class="zoomable" src="Publicidad Masajes.jpeg" alt="Publicidad de masajes" loading="lazy" />
+        <p>Publicidad</p>
+      </article>
     </div>
   </div>
 </section>
@@ -1291,64 +1399,20 @@
 <section id="videos">
   <div class="container">
     <div class="video-header reveal">
-      <div class="section-label">En acción</div>
-      <h2 class="section-title">Mis <em>Videos</em></h2>
+      <h2 class="section-title">Mirá cómo trabajo</h2>
       <div class="section-divider center"></div>
-      <p class="section-intro" style="margin:0 auto;text-align:center;">
-        Mirá cómo trabajo y conocé mis técnicas de cerca.
-      </p>
     </div>
     <div class="videos-grid">
-
-      <!-- Para agregar tus videos de YouTube, reemplazá el src con la URL embed de tu video -->
-      <!-- Formato: https://www.youtube.com/embed/TU_VIDEO_ID -->
       <div class="video-card reveal">
         <div class="video-thumb">
-          <!-- <iframe src="https://www.youtube.com/embed/TU_VIDEO_ID" allowfullscreen></iframe> -->
-          <div class="video-placeholder vp-1">
-            <div class="video-play">▶</div>
-            <div class="video-label">Agregá tu video aquí</div>
-          </div>
-        </div>
-        <div class="video-card-info">
-          <div class="video-card-title">Masaje Relajante</div>
-          <div class="video-card-desc">Técnica de masaje sueco para liberar tensiones acumuladas</div>
-        </div>
-      </div>
-
-      <div class="video-card reveal reveal-delay-1">
-        <div class="video-thumb">
-          <div class="video-placeholder vp-2">
-            <div class="video-play">▶</div>
-            <div class="video-label">Agregá tu video aquí</div>
-          </div>
-        </div>
-        <div class="video-card-info">
-          <div class="video-card-title">Perfilado de Cejas</div>
-          <div class="video-card-desc">Diseño personalizado para realzar tu mirada naturalmente</div>
-        </div>
-      </div>
-
-      <div class="video-card reveal reveal-delay-2">
-        <div class="video-thumb">
-          <div class="video-placeholder vp-3">
-            <div class="video-play">▶</div>
-            <div class="video-label">Agregá tu video aquí</div>
-          </div>
-        </div>
-        <div class="video-card-info">
-          <div class="video-card-title">Cuidado Facial</div>
-          <div class="video-card-desc">Rutina de mascarillas y masaje facial hidratante</div>
+          <video controls preload="metadata" poster="assets/media/masaje-mujer.jpg">
+            <source src="assets/media/video-masaje-hombre.mp4" type="video/mp4" />
+            Tu navegador no soporta videos HTML5.
+          </video>
         </div>
       </div>
 
     </div>
-    <p style="text-align:center;margin-top:2rem;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);display:flex;align-items:center;justify-content:center;gap:0.4rem;">
-      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--brand-instagram);">
-        <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/>
-      </svg>
-      <span>Seguime en Instagram para ver más contenido</span>
-    </p>
   </div>
 </section>
 
@@ -1363,52 +1427,24 @@
         Mi formación está respaldada por cursos certificados para que recibas una atención actualizada, segura y profesional.
       </p>
     </div>
-    <div class="cert-grid">
-
+    <div class="cert-grid cert-grid-main">
       <div class="cert-card reveal">
-        <div class="cert-seal">🏆</div>
-        <div class="cert-title">Masaje Terapéutico Profesional</div>
-        <div class="cert-inst">Institución Certificante</div>
-        <p class="cert-desc">Técnicas avanzadas de masaje terapéutico y descontracturante. Anatomía aplicada.</p>
-        <span class="cert-year">2022</span>
-        <div class="cert-image-placeholder">
-          📄 Subí aquí la foto<br>de tu certificado
-        </div>
+        <div class="cert-seal">📘</div>
+        <div class="cert-title">Matrícula Profesional de Masajista</div>
+        <div class="cert-inst">Formación Profesional</div>
+        <p class="cert-desc">Matrícula real disponible para verificación.</p>
+        <span class="cert-year">Desde 2022</span>
+        <img class="cert-image zoomable" src="assets/media/matricula-masajista.jpg" alt="Matrícula profesional de masajista" loading="lazy" />
       </div>
 
       <div class="cert-card reveal reveal-delay-1">
-        <div class="cert-seal">✨</div>
-        <div class="cert-title">Estética Facial y Corporal</div>
-        <div class="cert-inst">Escuela de Estética</div>
-        <p class="cert-desc">Tratamientos faciales, técnicas de depilación y cuidado de la piel.</p>
-        <span class="cert-year">2023</span>
-        <div class="cert-image-placeholder">
-          📄 Subí aquí la foto<br>de tu certificado
-        </div>
+        <div class="cert-seal">🧠</div>
+        <div class="cert-title">Matrícula de Masajes Cérvico Craneales</div>
+        <div class="cert-inst">Especialización</div>
+        <p class="cert-desc">Acreditación específica en técnicas cérvico craneales.</p>
+        <span class="cert-year">Vigente</span>
+        <img class="cert-image zoomable" src="assets/media/matricula-cervico-craneal.jpg" alt="Matrícula de masajes cérvico craneales" loading="lazy" />
       </div>
-
-      <div class="cert-card reveal reveal-delay-2">
-        <div class="cert-seal">🎨</div>
-        <div class="cert-title">Diseño de Cejas</div>
-        <div class="cert-inst">Academia de Belleza</div>
-        <p class="cert-desc">Perfilado, diseño y coloración de cejas según morfología del rostro.</p>
-        <span class="cert-year">2024</span>
-        <div class="cert-image-placeholder">
-          📄 Subí aquí la foto<br>de tu certificado
-        </div>
-      </div>
-
-      <div class="cert-card reveal reveal-delay-3">
-        <div class="cert-seal">🌿</div>
-        <div class="cert-title">Masaje Relajante</div>
-        <div class="cert-inst">Centro de Formación</div>
-        <p class="cert-desc">Masaje sueco, drenaje linfático y técnicas de relajación profunda.</p>
-        <span class="cert-year">2025</span>
-        <div class="cert-image-placeholder">
-          📄 Subí aquí la foto<br>de tu certificado
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1685,15 +1721,17 @@
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const img = item.querySelector('img');
-      if (img) {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-      }
-    });
+
+  const openLightbox = (src, alt = '') => {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightbox.classList.add('active');
+  };
+
+  document.querySelectorAll('.zoomable').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
   });
+
   lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) lightbox.classList.remove('active');
