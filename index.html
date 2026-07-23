@@ -697,10 +697,24 @@
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.5rem;
     }
-    .cert-grid-main {
-      max-width: 840px;
+    .cert-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .cert-row {
+      display: grid;
+      gap: 1.5rem;
       margin: 0 auto;
+      width: 100%;
+    }
+    .cert-row-2 {
+      max-width: 840px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .cert-row-3 {
+      max-width: 1140px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .cert-card {
       background: var(--white);
@@ -708,6 +722,10 @@
       text-align: center;
       position: relative;
       transition: transform var(--transition), box-shadow var(--transition);
+      height: 100%;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
     }
     .cert-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow); }
     .cert-seal {
@@ -741,7 +759,7 @@
     }
     .cert-image {
       width: 100%;
-      aspect-ratio: 4/3;
+      height: 250px;
       object-fit: cover;
       display: block;
       margin-top: 1rem;
@@ -759,6 +777,14 @@
       text-transform: uppercase; color: var(--text-light);
       cursor: pointer;
       border: 1.5px dashed var(--gold-light);
+    }
+    .cert-hint {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
     }
 
     /* ===== PROMOCIONES ===== */
@@ -1019,7 +1045,9 @@
       .services-grid { grid-template-columns: 1fr; }
       .perf-grid { grid-template-columns: 1fr; }
       .cert-grid { grid-template-columns: 1fr; }
-      .cert-grid-main { grid-template-columns: 1fr; }
+      .cert-row-2, .cert-row-3 { grid-template-columns: 1fr; max-width: 100%; }
+      .cert-card { min-height: auto; }
+      .cert-image { height: 220px; }
       .promos-grid { grid-template-columns: 1fr; }
       .about-stats { grid-template-columns: 1fr 1fr; }
     }
@@ -1190,17 +1218,6 @@
           <span class="service-tag">Masaje facial</span>
         </div>
       </div>
-
-      <div class="service-card reveal">
-        <span class="service-icon">🎨</span>
-        <div class="service-name">Tatuajes</div>
-        <div class="service-time">⏱ A consultar</div>
-        <p class="service-desc">Arte corporal personalizado con diseños únicos. Consultá por diseños y disponibilidad.</p>
-        <div class="service-items">
-          <span class="service-tag">Diseños propios</span>
-          <span class="service-tag">Personalizado</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1326,31 +1343,6 @@
         </div>
       </div>
 
-      <div class="precio-table reveal reveal-delay-3">
-        <div class="precio-table-title">Combos Depilación</div>
-        <div class="precio-table-sub">Promociones por zonas</div>
-        <div class="precio-row">
-          <span class="precio-item">🟦 COMBO 1: Piernas completas + axilas</span>
-          <span class="precio-val">$21.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">💎 COMBO 2: Media pierna + cavado completo + axilas</span>
-          <span class="precio-val">$20.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">👑 COMBO 3 FULL PROMO: Piernas completas + cavado completo + axilas + bozo</span>
-          <span class="precio-val">$25.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">⚡ COMBO 4: Cavado completo + axilas + media pierna</span>
-          <span class="precio-val">$23.000</span>
-        </div>
-        <div class="precio-row">
-          <span class="precio-item">⭐ COMBO 5: Piernas completas + axilas + cavado completo</span>
-          <span class="precio-val">$25.000</span>
-        </div>
-      </div>
-
     </div>
     <p style="text-align:center; margin-top:2.5rem; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3);">
       * Los precios pueden variar. Consultá por paquetes y descuentos especiales.
@@ -1375,7 +1367,7 @@
         <p>Perfilado de cejas</p>
       </article>
       <article class="media-card reveal reveal-delay-2">
-        <img class="zoomable" src="Publicidad Masajes.jpeg" alt="Publicidad de masajes" loading="lazy" />
+        <img class="zoomable" src="assets/media/publicidad-masajes.jpg" alt="Publicidad de masajes" loading="lazy" />
         <p>Publicidad</p>
       </article>
     </div>
@@ -1414,23 +1406,70 @@
         Mi formación está respaldada por cursos certificados para que recibas una atención actualizada, segura y profesional.
       </p>
     </div>
-    <div class="cert-grid cert-grid-main">
-      <div class="cert-card reveal">
-        <div class="cert-seal">📘</div>
-        <div class="cert-title">Matrícula Profesional de Masajista</div>
-        <div class="cert-inst">Formación Profesional</div>
-        <p class="cert-desc">Matrícula real disponible para verificación.</p>
-        <span class="cert-year">Desde 2022</span>
-        <img class="cert-image zoomable" src="assets/media/matricula-masajista.jpg" alt="Matrícula profesional de masajista" loading="lazy" />
+    <div class="cert-hint">Tocá una imagen para verla más grande.</div>
+    <div class="cert-rows">
+      <div class="cert-row cert-row-2">
+        <div class="cert-card reveal">
+          <div class="cert-seal">📘</div>
+          <div class="cert-title">Matrícula Profesional de Masajista</div>
+          <div class="cert-inst">Formación Profesional</div>
+          <p class="cert-desc">Matrícula real disponible para verificación.</p>
+          <span class="cert-year">Desde 2022</span>
+          <img class="cert-image zoomable" src="assets/media/matricula-masajista.jpg" alt="Matrícula profesional de masajista" loading="lazy" />
+        </div>
+
+        <div class="cert-card reveal reveal-delay-1">
+          <div class="cert-seal">🧠</div>
+          <div class="cert-title">Matrícula de Masajes Cérvico Craneales</div>
+          <div class="cert-inst">Especialización</div>
+          <p class="cert-desc">Acreditación específica en técnicas cérvico craneales.</p>
+          <span class="cert-year">Vigente</span>
+          <img class="cert-image zoomable" src="assets/media/matricula-cervico-craneal.jpg" alt="Matrícula de masajes cérvico craneales" loading="lazy" />
+        </div>
       </div>
 
-      <div class="cert-card reveal reveal-delay-1">
-        <div class="cert-seal">🧠</div>
-        <div class="cert-title">Matrícula de Masajes Cérvico Craneales</div>
-        <div class="cert-inst">Especialización</div>
-        <p class="cert-desc">Acreditación específica en técnicas cérvico craneales.</p>
-        <span class="cert-year">Vigente</span>
-        <img class="cert-image zoomable" src="assets/media/matricula-cervico-craneal.jpg" alt="Matrícula de masajes cérvico craneales" loading="lazy" />
+      <div class="cert-row cert-row-3">
+        <div class="cert-card reveal">
+          <div class="cert-seal">🩵</div>
+          <div class="cert-title">Drenaje Linfático</div>
+          <div class="cert-inst">Curso certificado</div>
+          <p class="cert-desc">Técnicas orientadas a estimular el sistema linfático y mejorar la sensación de bienestar.</p>
+          <img class="cert-image zoomable" src="assets/media/cert-drenaje-linfatico.jpg" alt="Certificado de drenaje linfático" loading="lazy" />
+        </div>
+
+        <div class="cert-card reveal reveal-delay-1">
+          <div class="cert-seal">🪷</div>
+          <div class="cert-title">Relajantes y Ventosas Chinas</div>
+          <div class="cert-inst">Curso certificado</div>
+          <p class="cert-desc">Formación en masaje relajante y uso de ventosas chinas como complemento terapéutico.</p>
+          <img class="cert-image zoomable" src="assets/media/cert-relajantes-ventosas-chinas.jpg" alt="Certificado de relajantes y ventosas chinas" loading="lazy" />
+        </div>
+
+        <div class="cert-card reveal reveal-delay-2">
+          <div class="cert-seal">✨</div>
+          <div class="cert-title">Depilación</div>
+          <div class="cert-inst">Curso certificado</div>
+          <p class="cert-desc">Técnicas para depilación profesional con enfoque en precisión y cuidado de la piel.</p>
+          <img class="cert-image zoomable" src="assets/media/cert-depilacion.jpg" alt="Certificado de depilación" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="cert-row cert-row-2">
+        <div class="cert-card reveal reveal-delay-3">
+          <div class="cert-seal">👁️</div>
+          <div class="cert-title">Perfilado de Cejas y Lifting</div>
+          <div class="cert-inst">Curso certificado</div>
+          <p class="cert-desc">Diseño de cejas y lifting para realzar la mirada de forma natural.</p>
+          <img class="cert-image zoomable" src="assets/media/cert-perfilado-cejas-lifting.jpg" alt="Certificado de perfilado de cejas y lifting" loading="lazy" />
+        </div>
+
+        <div class="cert-card reveal">
+          <div class="cert-seal">🌿</div>
+          <div class="cert-title">Dermaplanig, Peeling y Dermapen</div>
+          <div class="cert-inst">Curso certificado</div>
+          <p class="cert-desc">Tratamientos faciales orientados a renovar, suavizar y mejorar la textura de la piel.</p>
+          <img class="cert-image zoomable" src="assets/media/cert-dermaplanig-peeling-dermapen.jpg" alt="Certificado de dermaplanig, peeling y dermapen" loading="lazy" />
+        </div>
       </div>
     </div>
   </div>
